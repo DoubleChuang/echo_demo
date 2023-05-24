@@ -1,0 +1,4 @@
+.vscode
+bin/
+src/*.o
+src/*.o.d

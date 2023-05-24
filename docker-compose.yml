@@ -1,0 +1,27 @@
+services:
+  echo_server:
+    image: echo_demo
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    # ports:
+    #   - "8080:8080/udp"
+    command: /app/echo_server 8080
+
+  echo_client:
+    image: echo_demo
+    depends_on:
+      - echo_server
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    command: /app/echo_client echo_server 8080 "Hello Echo Server"
+  
+  echo_client1:
+    image: echo_demo
+    depends_on:
+      - echo_server
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    command: /app/echo_client echo_server 8080 "Hello Echo Server"
