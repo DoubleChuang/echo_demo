@@ -25,7 +25,6 @@ EchoServer* newEchoServer(int serverPort) {
     server->server_addr.sin_port = htons(serverPort);
     server->server_addr.sin_addr.s_addr = INADDR_ANY;
 
-    // 將套接字綁定到指定的 IP 和端口
     if (bind(server->sockfd, (struct sockaddr *)&server->server_addr, sizeof(server->server_addr)) == -1) {
         perror("bind");
         exit(1);
@@ -37,7 +36,7 @@ EchoServer* newEchoServer(int serverPort) {
 void runEchoServer(EchoServer* server) {
     char buffer[BUFFER_SIZE];
 
-    printf("Echo Server is running...\n");
+    fprintf(stdout, "Echo Server is running...\n");
 
     while (1) {
         struct sockaddr_in client_addr;
@@ -52,7 +51,7 @@ void runEchoServer(EchoServer* server) {
         }
 
         buffer[recv_len] = '\0';
-        printf("Received message from client: %s\n", buffer);
+        fprintf(stdout, "Received message from client: %s\n", buffer);
 
         // Send the received message back to the client
         if (sendto(server->sockfd, buffer, strlen(buffer), 0, (struct sockaddr *)&client_addr, addr_len) == -1) {
@@ -60,7 +59,7 @@ void runEchoServer(EchoServer* server) {
             exit(1);
         }
 
-        printf("Sent message back to client: %s\n", buffer);
+        fprintf(stdout, "Sent message back to client: %s\n", buffer);
     }
 
     // Close the socket

@@ -96,7 +96,7 @@ void sendMessage(EchoClient* client, const char* message) {
             exit(1);
         }
 
-        printf("Sent message to server: %s\n", message);
+        fprintf(stdout, "Sent message to server: %s\n", message);
 
         // Set non-blocking mode and wait for a response
         fd_set readSet;
@@ -117,7 +117,7 @@ void sendMessage(EchoClient* client, const char* message) {
         if (selectResult == 0) {
             // Time has elapsed, retry
             retryCount++;
-            printf("Retry count: %d\n", retryCount);
+            fprintf(stdout, "Retry count: %d\n", retryCount);
 
             // Use exponential backoff algorithm to calculate the next retry interval
             retryInterval *= 2;
@@ -140,7 +140,7 @@ void sendMessage(EchoClient* client, const char* message) {
         }
 
         buffer[recv_len] = '\0';
-        printf("Received echo message from server: %s\n", buffer);
+        fprintf(stdout, "Received echo message from server: %s\n", buffer);
 
         // If a response is received, break out of the retry loop
         break;
