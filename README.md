@@ -41,8 +41,8 @@ docker run -it --rm \
 ![](imgs/run_client.gif)
 ![](imgs/run_client_retry.gif)
 You can also use a pre-built Docker image
-- `doublehub/echo_demo:a00b69f`
-- `ghcr.io/doublechuang/echo_demo:a00b69f`
+- [doublehub/echo_demo:latest](https://github.com/users/DoubleChuang/packages/container/package/echo_demo)
+- [ghcr.io/doublechuang/echo_demo:latest](https://github.com/users/DoubleChuang/packages/container/package/echo_demo)
 
 
 Run `Echo Server` with the following command:
