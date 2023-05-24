@@ -13,7 +13,7 @@ COPY . /app
 WORKDIR /app
 RUN make all
 
-CMD ["/app/bin/echo_server", "0.0.0.0", "8080"]
+CMD ["/app/bin/echo_server", "8080"]
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # `production` image used for runtime
@@ -23,4 +23,4 @@ FROM base as production
 WORKDIR /app
 COPY --from=builder-base /app/bin /app
 
-CMD ["/app/echo_server", "0.0.0.0", "8080"]
+CMD ["/app/echo_server", "8080"]
