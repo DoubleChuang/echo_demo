@@ -17,6 +17,7 @@ I provide to build an docker image -- [dockerfile](dockerfile)
 ```
 make build_docker
 ```
+![](imgs/build_docker.gif)
 
 Run `Echo Server` with the following command:
 
@@ -27,7 +28,7 @@ docker run -d --rm \
     echo_demo \
     /app/echo_server 8080
 ```
-
+![](imgs/run_server.gif)
 Run `Echo Client` with the following command:
 
 ```
@@ -37,7 +38,8 @@ docker run -it --rm \
     echo_demo \
     /app/echo_client 127.0.0.1 8080 "Hello Echo Server"
 ```
-
+![](imgs/run_client.gif)
+![](imgs/run_client_retry.gif)
 You can also use a pre-built Docker image
 - `doublehub/echo_demo:a00b69f`
 - `ghcr.io/doublechuang/echo_demo:a00b69f`
