@@ -23,7 +23,7 @@ Run `Echo Server` with the following command:
 
 ```
 docker run -d --rm \
-    -p 8080:8080 \
+    -p 8080:8080/udp \
     --name echo_server \
     echo_demo \
     /app/echo_server 8080
