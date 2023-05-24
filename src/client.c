@@ -60,14 +60,22 @@ EchoClient* newEchoClient(const char* serverHost, int serverPort, int maxRetry) 
     client->serverHost = serverHost;
     client->serverPort = serverPort;
     client->maxRetry = maxRetry;
+    srand(time(NULL));
     
     return client;
+}
+
+int generateRandomNumber(int input) {
+    // Generate a random number between -input and input
+    int randomNumber = rand() % (input * 2 + 1) - input;
+
+    return randomNumber;
 }
 
 void sendMessage(EchoClient* client, const char* message) {
     int sockfd;
     int retryCount = 0;
-    int retryInterval = INITIAL_RETRY_INTERVAL;
+    int base = INITIAL_RETRY_INTERVAL;
     struct sockaddr_in server_addr;
     char buffer[BUFFER_SIZE];
     char* serverIP = resolveHost(client->serverHost);
@@ -119,14 +127,19 @@ void sendMessage(EchoClient* client, const char* message) {
             retryCount++;
             fprintf(stdout, "Retry count: %d\n", retryCount);
 
-            // Use exponential backoff algorithm to calculate the next retry interval
-            retryInterval *= 2;
+            // Calculate the next retry interval using the formula: wait_interval = (base * pow(2, n)) +/- (random_interval)
+            int n = retryCount - 1;
+            int random_interval = generateRandomNumber(base);
+            int wait_interval = (base * pow(2, n));
 
+            // Add Jitter
+            wait_interval += random_interval;
+            
             // Limit the maximum wait interval
-            retryInterval = fmin(retryInterval, MAX_WAIT_INTERVAL);
+            wait_interval = fmin(wait_interval, MAX_WAIT_INTERVAL);
 
-            // Delay for the retry interval
-            usleep(retryInterval * 1000);
+            // Delay for the wait interval
+            usleep(wait_interval * 1000);
 
             continue;
         }
